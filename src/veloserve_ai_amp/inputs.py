@@ -114,6 +114,18 @@ def normalize_inputs(payload: dict[str, Any] | None) -> dict[str, object]:
                 context_urls=context_urls,
                 notes=notes,
             ),
+            "artifact_output_contract": build_artifact_output_contract(
+                task_type=task_type,
+                artifacts_required=artifacts_required,
+            ),
+            "scope_lock_rules": build_scope_lock_rules(
+                task_type=task_type,
+                repo_scope=repo_scope,
+                segment=segment,
+                target=target,
+                goal=goal,
+                artifacts_required=artifacts_required,
+            ),
             "current_year": current_year,
         }
     )
@@ -156,6 +168,59 @@ def build_structured_request(
             f"- Notes: {notes or 'None provided'}",
         ]
     )
+
+
+def build_artifact_output_contract(*, task_type: str, artifacts_required: list[str]) -> str:
+    artifact_names = artifacts_required or ["result"]
+    lines = [
+        "Use markdown headings that exactly match the artifact names below.",
+        "Keep each artifact distinct. Do not duplicate the same bullets across multiple artifacts.",
+        "Do not prepend narrative before the first artifact heading.",
+        "If you must change scope, add a final heading named `scope_adjustments` with a short reason.",
+    ]
+
+    if task_type == "draft_issue":
+        lines.extend(
+            [
+                "For `issue_title`, return a single bullet with the final title text only.",
+                "For `github_issue_body`, place the exact GitHub-ready body inside a fenced `md` code block.",
+                "Keep `github_issue_body` concise and implementation-ready. Target 180-220 words unless the request explicitly asks for more.",
+                "For `approval_gates`, keep only approval-sensitive steps and required sign-offs. Do not repeat `acceptance_criteria` or `risk_summary` there.",
+            ]
+        )
+
+    for artifact_name in artifact_names:
+        lines.append(f"- Heading required: `## {artifact_name}`")
+    return "\n".join(lines)
+
+
+def build_scope_lock_rules(
+    *,
+    task_type: str,
+    repo_scope: str,
+    segment: str,
+    target: str,
+    goal: str,
+    artifacts_required: list[str],
+) -> str:
+    lines = [
+        f"Preserve the original repo scope `{repo_scope}`, segment `{segment}`, and target `{target}`.",
+        f"Preserve the intent of this goal: {goal}",
+        (
+            "Do not silently narrow or replace the requested scope. If you recommend a smaller first PR, "
+            "keep the broader requested scope visible and explain the split explicitly."
+        ),
+    ]
+    if artifacts_required:
+        lines.append(
+            "Preserve these requested artifacts unless the request explicitly changes them: "
+            + ", ".join(artifacts_required)
+        )
+    if task_type == "draft_issue":
+        lines.append(
+            "For draft_issue tasks, do not drop replay protection, idempotency, DB, or rollout concerns if they are part of the requested brief."
+        )
+    return "\n".join(lines)
 
 
 def _coerce_enum(value: Any, allowed: set[str], fallback: str) -> str:

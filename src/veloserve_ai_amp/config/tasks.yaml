@@ -18,21 +18,29 @@ route_task:
     {goal}
 
     Requested artifacts:
-    {artifacts_required}
+    {artifacts_required_text}
 
     Context URLs:
-    {context_urls}
+    {context_urls_text}
 
     Notes:
-    {notes}
+    {notes_text}
 
     Constraints:
     {constraints}
 
+    Scope lock rules:
+    {scope_lock_rules}
+
+    Output contract for downstream tasks:
+    {artifact_output_contract}
+
     Using the shared product context, decide which VeloServe repo or crew should own the work,
-    summarize the task in a clean engineering brief, and call out any missing assumptions.
+    summarize the task in a clean engineering brief, preserve the requested scope and artifact names,
+    and call out any missing assumptions.
   expected_output: >
-    A markdown routing brief with suggested owning repo, suggested crew, summary of the request, and important assumptions.
+    A markdown routing brief with suggested owning repo, suggested crew, summary of the request,
+    requested artifacts, and important assumptions. If scope should be narrowed, explain it explicitly.
   agent: intake_router
 
 plan_task:
@@ -45,18 +53,27 @@ plan_task:
     - Segment: {segment}
     - Target: {target}
     - Goal: {goal}
-    - Requested artifacts: {artifacts_required}
-    - Context URLs: {context_urls}
-    - Notes: {notes}
+    - Requested artifacts: {artifacts_required_text}
+    - Context URLs:
+    {context_urls_text}
+    - Notes: {notes_text}
 
     Keep the work small and reviewable, identify dependencies, and stay within these constraints:
     {constraints}
+
+    Scope lock rules:
+    {scope_lock_rules}
+
+    Output contract:
+    {artifact_output_contract}
   expected_output: >
     A markdown implementation plan with ordered steps, repo scope, validation approach, and what success looks like.
+    Preserve the requested scope and artifacts. If you recommend a smaller first PR, keep the broader scope visible
+    and explain the split explicitly.
     Success definition:
     {success_definition}
     Required artifacts:
-    {artifacts_required}
+    {artifacts_required_text}
   agent: implementation_planner
 
 review_task:
@@ -68,9 +85,18 @@ review_task:
     - Repo scope: {repo_scope}
     - Segment: {segment}
     - Target: {target}
-    - Requested artifacts: {artifacts_required}
-    - Context URLs: {context_urls}
-    - Notes: {notes}
+    - Requested artifacts: {artifacts_required_text}
+    - Context URLs:
+    {context_urls_text}
+    - Notes: {notes_text}
+
+    Scope lock rules:
+    {scope_lock_rules}
+
+    Output contract:
+    {artifact_output_contract}
+
+    Explicitly flag any scope drift between the original request and the proposed plan.
   expected_output: >
-    A markdown QA and safety review with risks, approval gates, and a final go/no-go recommendation.
+    A markdown QA and safety review with risks, approval gates, scope-drift notes, and a final go/no-go recommendation.
   agent: qa_gatekeeper
