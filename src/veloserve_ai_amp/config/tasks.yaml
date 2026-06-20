@@ -1,0 +1,37 @@
+route_task:
+  description: >
+    Review this incoming task for the VeloServe ecosystem:
+
+    Goal:
+    {goal}
+
+    Repo scope hint:
+    {repo_scope}
+
+    Constraints:
+    {constraints}
+
+    Using the shared product context, decide which VeloServe repo or crew should own the work,
+    summarize the task in a clean engineering brief, and call out any missing assumptions.
+  expected_output: >
+    A markdown routing brief with suggested owning repo, suggested crew, summary of the request, and important assumptions.
+  agent: intake_router
+
+plan_task:
+  description: >
+    Based on the routed brief, create a practical implementation plan for this request.
+    Keep the work small and reviewable, identify dependencies, and stay within these constraints:
+    {constraints}
+  expected_output: >
+    A markdown implementation plan with ordered steps, repo scope, validation approach, and what success looks like.
+    Success definition:
+    {success_definition}
+  agent: implementation_planner
+
+review_task:
+  description: >
+    Review the proposed implementation plan for auth, billing, secrets, ownership checks,
+    destructive paths, and product-boundary risk. Mark what is safe for autonomous work and what needs human approval.
+  expected_output: >
+    A markdown QA and safety review with risks, approval gates, and a final go/no-go recommendation.
+  agent: qa_gatekeeper

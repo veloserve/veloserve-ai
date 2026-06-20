@@ -1,0 +1,6 @@
+name: community_crew
+report_prefix: community_report
+process: sequential
+knowledge_files:
+  - knowledge/architecture/repo_map.md
+  - knowledge/architecture/subdomains.md

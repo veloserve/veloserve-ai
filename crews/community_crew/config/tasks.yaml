@@ -1,0 +1,21 @@
+define_community_goal:
+  description: >
+    Define the purpose of `community.veloserve.io` and how it should support product trust, contribution, and discovery.
+  expected_output: >
+    A markdown community strategy summary with goals, audiences, and success criteria.
+  agent: community_strategist
+
+shape_community_structure:
+  description: >
+    Propose the initial information architecture for the community site, including likely sections,
+    public flows, and how it connects to docs or product properties.
+  expected_output: >
+    A markdown IA proposal for the community site with sections, flows, and rationale.
+  agent: community_information_architect
+
+review_community_experience:
+  description: >
+    Review the proposed community direction for confusion, fragmentation, and weak handoffs between community and product surfaces.
+  expected_output: >
+    A markdown experience review with risks, improvements, and open questions.
+  agent: community_experience_reviewer

@@ -1,0 +1,28 @@
+[project]
+name = "veloserve-ai-amp"
+version = "0.1.0"
+description = "AMP-ready CrewAI entrypoint for VeloServe orchestration."
+authors = [{ name = "Nemanja Djuric" }]
+requires-python = ">=3.10,<3.14"
+dependencies = [
+  "crewai[tools]==1.14.7",
+  "python-dotenv>=1.0.1"
+]
+
+[project.scripts]
+veloserve-ai-amp = "veloserve_ai_amp.main:run"
+run_crew = "veloserve_ai_amp.main:run"
+train = "veloserve_ai_amp.main:train"
+replay = "veloserve_ai_amp.main:replay"
+test = "veloserve_ai_amp.main:test"
+run_with_trigger = "veloserve_ai_amp.main:run_with_trigger"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/veloserve_ai_amp"]
+
+[tool.crewai]
+type = "crew"

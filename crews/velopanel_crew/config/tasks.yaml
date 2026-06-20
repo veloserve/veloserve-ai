@@ -1,0 +1,50 @@
+assess_panel_backend:
+  description: >
+    Review this VeloPanel request:
+
+    Goal:
+    {goal}
+
+    Repo scope:
+    {repo_scope}
+
+    Constraints:
+    {constraints}
+
+    Summarize the core backend domains most likely involved:
+    accounts, domains, SSL, databases, backups, monitoring, quotas, and service controls.
+    Call out likely ownership, permission, or data-isolation implications.
+  expected_output: >
+    A markdown backend assessment with likely affected domains, suspected backend areas,
+    data-safety concerns, and the most relevant next fixes.
+  agent: panel_backend_lead
+
+assess_panel_user_experience:
+  description: >
+    Review the panel experience for both admins and hosting account users in the context of this request.
+    Focus on clarity, task completion, visibility of limits, and friction in daily workflows.
+    If the request affects quotas, domains, databases, file management, or backups,
+    explain what the user should see before and after the change.
+  expected_output: >
+    A markdown workflow and UX review with likely affected screens, user-facing implications,
+    and concrete improvement opportunities.
+  agent: panel_frontend_lead
+
+review_panel_safety:
+  description: >
+    Convert the request into a safe implementation brief for VeloPanel.
+    Review likely changes for permission issues, ownership bugs, quota gaps, destructive-path risk,
+    and server-side operational regressions.
+    Optimize for:
+    - a small first PR
+    - explicit validation steps
+    - minimized blast radius for hosting operations
+  expected_output: >
+    A markdown implementation and safety brief with:
+    - recommended first PR
+    - suspected files or subsystems
+    - permissions and quota checks to review
+    - validation steps
+    - success definition:
+      {success_definition}
+  agent: panel_workflow_reviewer

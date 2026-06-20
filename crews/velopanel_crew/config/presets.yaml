@@ -1,0 +1,49 @@
+quota-review:
+  goal: >
+    Review quota enforcement in VeloPanel for account-scoped resources such as domains, databases,
+    email, FTP, backups, and related limits.
+  repo_scope: velopanel
+  constraints: >
+    No destructive account changes. Verify ownership, package limits, and user-facing error behavior.
+  success_definition: >
+    Return the safest first PR, likely files, validation steps, and quota or ownership risks.
+
+ownership-audit:
+  goal: >
+    Audit VeloPanel account-scoped routes and operations for ownership and permission checks.
+    Focus on ID-based updates, deletes, and resource actions that could cross account boundaries.
+  repo_scope: velopanel
+  constraints: >
+    Prioritize security and correctness. Keep fixes incremental and easy to review.
+  success_definition: >
+    Return the highest-priority ownership fix, likely files, validation plan, and security notes.
+
+account-ux-review:
+  goal: >
+    Review the VeloPanel account experience for admins and hosting account users.
+    Focus on clarity, navigation, resource visibility, quotas, and everyday hosting workflows.
+  repo_scope: velopanel
+  constraints: >
+    Keep work low-risk and grounded in real panel workflows. Avoid broad redesigns as a first step.
+  success_definition: >
+    Return the most valuable UX improvement, likely screens/files, and how to validate it safely.
+
+ssl-domain-review:
+  goal: >
+    Review domain and SSL management flows in VeloPanel.
+    Focus on domain lifecycle, Let's Encrypt behavior, visibility of failures, and safe automation.
+  repo_scope: velopanel
+  constraints: >
+    No destructive domain actions. Prefer observability, validation, and low-risk workflow improvements.
+  success_definition: >
+    Return the next practical implementation step, likely files, operational risks, and validation steps.
+
+database-review:
+  goal: >
+    Review VeloPanel database provisioning and management workflows.
+    Focus on database creation, privileges, engine support, account isolation, and error handling.
+  repo_scope: velopanel
+  constraints: >
+    No destructive DB changes without clear safeguards. Keep the first change reviewable and low-blast-radius.
+  success_definition: >
+    Return the next safe backend or UX improvement, likely files, data-safety concerns, and tests to run.

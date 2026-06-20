@@ -1,0 +1,23 @@
+assess_server_surface:
+  description: >
+    Review the web server product context and summarize the most important product areas:
+    runtime behavior, PHP execution, caching, config, virtual hosts, and supported app patterns.
+  expected_output: >
+    A markdown server product assessment with strengths, gaps, and likely focus areas.
+  agent: server_architect
+
+identify_runtime_improvements:
+  description: >
+    Propose a short list of high-value runtime or performance improvements for the server product.
+    Prefer safe, measurable, reviewable work.
+  expected_output: >
+    A markdown list of server improvements with rationale, impact, and risk level.
+  agent: performance_engineer
+
+review_compatibility_risks:
+  description: >
+    Review the proposed improvement areas for compatibility risk across PHP apps, WordPress, Magento,
+    and multi-site or virtual host setups.
+  expected_output: >
+    A markdown compatibility review with regression risks and validation notes.
+  agent: compatibility_reviewer

@@ -1,0 +1,17 @@
+name: platform_crew
+report_prefix: platform_report
+process: sequential
+default_goal: >
+  Review the next practical work for platform.veloserve.io and turn it into a safe, reviewable implementation plan.
+default_repo_scope: >
+  platform
+default_constraints: >
+  No production deploys, no pricing or billing changes without approval, keep work PR-sized,
+  and prefer additive or low-risk changes over rewrites.
+default_success_definition: >
+  Return repo-scoped recommendations, suspected files or subsystems, a step-by-step implementation plan,
+  validation guidance, and explicit billing/auth risks.
+knowledge_files:
+  - repos/platform/README.md
+  - knowledge/architecture/repo_map.md
+  - knowledge/architecture/subdomains.md

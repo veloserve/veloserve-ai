@@ -1,0 +1,6 @@
+name: veloserve_server_crew
+report_prefix: veloserve_server_report
+process: sequential
+knowledge_files:
+  - repos/veloserve/README.md
+  - knowledge/architecture/repo_map.md

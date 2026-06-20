@@ -1,0 +1,50 @@
+billing-review:
+  goal: >
+    Review the next billing improvements for platform.veloserve.io.
+    Focus on subscription correctness, checkout flow, invoice impact, and approval-sensitive changes.
+  repo_scope: platform
+  constraints: >
+    No pricing or billing changes without approval. Keep work PR-sized.
+    Prefer instrumentation, validation, and small correctness fixes over broad rewrites.
+  success_definition: >
+    Return the safest first PR, likely files or modules, validation steps, and billing/auth risks.
+
+auth-review:
+  goal: >
+    Review platform authentication and session behavior for correctness, security, and customer UX.
+    Focus on sign-in, logout, callback flows, session persistence, and tenant resolution.
+  repo_scope: platform
+  constraints: >
+    No production auth migrations without approval. Keep work low-risk and reviewable.
+  success_definition: >
+    Return likely affected auth surfaces, the safest first implementation step, tests, and security notes.
+
+dashboard-gap-review:
+  goal: >
+    Review platform.veloserve.io dashboard gaps and identify the next highest-value customer-facing improvements.
+    Focus on account clarity, subscriptions, invoices, downloads, tickets, and empty/error states.
+  repo_scope: platform
+  constraints: >
+    Keep work PR-sized and low-risk. Avoid mixing unrelated backend rewrites into UI improvements.
+  success_definition: >
+    Return a prioritized implementation brief with suspected UI/backend files, UX risks, and validation steps.
+
+ticketing-review:
+  goal: >
+    Review the customer support and ticketing surface in platform.veloserve.io.
+    Focus on workflow clarity, state management, agent/admin handoff, and missing operational controls.
+  repo_scope: platform
+  constraints: >
+    Keep changes incremental and avoid expanding scope into unrelated billing or auth work unless necessary.
+  success_definition: >
+    Return the next practical ticketing improvement, likely files, dependencies, and validation guidance.
+
+downloads-licensing-review:
+  goal: >
+    Review downloads, product access, and licensing-touching flows in platform.veloserve.io.
+    Focus on entitlement boundaries, download visibility, and integration points with licensing.
+  repo_scope: platform
+  constraints: >
+    Do not redefine licensing policy without approval. Keep implementation scoped to clear product boundaries.
+  success_definition: >
+    Return the next safe implementation step, likely files, entitlement risks, and cross-repo notes.

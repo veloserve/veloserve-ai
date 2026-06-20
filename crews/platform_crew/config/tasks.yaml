@@ -1,0 +1,50 @@
+assess_platform_scope:
+  description: >
+    Review this platform.veloserve.io request:
+
+    Goal:
+    {goal}
+
+    Repo scope:
+    {repo_scope}
+
+    Constraints:
+    {constraints}
+
+    Focus on the current central SaaS responsibilities: auth, billing, subscriptions, invoices,
+    tickets, downloads, and dashboard orchestration.
+    Infer which platform surfaces are most likely affected and identify any ownership boundary with other repos.
+  expected_output: >
+    A markdown platform scope assessment with likely affected subsystems, ownership boundaries,
+    open assumptions, and the most relevant implementation surface.
+  agent: platform_architect
+
+review_billing_risk:
+  description: >
+    Based on the incoming request and the platform scope assessment, identify the billing,
+    subscription, auth, or account-lifecycle implications.
+    Stay conservative about financial correctness and prefer safe incremental improvements over large rewrites.
+    If the request is not primarily billing-related, still call out any billing or entitlement side effects.
+  expected_output: >
+    A markdown risk-focused worklist with suspected backend areas, approval gates,
+    financial or auth risks, and the safest recommended sequence.
+  agent: billing_systems_lead
+
+review_dashboard_experience:
+  description: >
+    Turn the request into a practical execution plan for the platform team.
+    Review the dashboard and customer lifecycle experience for sign-in, account state, subscriptions,
+    invoices, tickets, and downloads, and determine what implementation or UX changes should happen first.
+    Optimize for:
+    - a small PR-sized first step
+    - clear validation guidance
+    - low customer-facing risk
+  expected_output: >
+    A markdown implementation brief with:
+    - recommended first PR
+    - suspected files or folders
+    - validation and test guidance
+    - UX or reliability notes
+    - success definition:
+      {success_definition}
+  agent: dashboard_experience_lead

@@ -1,0 +1,21 @@
+define_licensing_scope:
+  description: >
+    Based on the product map and subdomain plan, define what the dedicated licensing platform should own.
+    Include activation, validation, heartbeats, entitlements, and integrations with other products.
+  expected_output: >
+    A markdown licensing scope definition with domain boundaries and service responsibilities.
+  agent: licensing_architect
+
+shape_entitlement_model:
+  description: >
+    Propose a practical entitlement and license-state model that can support VeloServe and VeloPanel consistently.
+  expected_output: >
+    A markdown entitlement model with concepts, state transitions, and integration expectations.
+  agent: entitlement_designer
+
+review_licensing_risk:
+  description: >
+    Review the proposed licensing model for abuse scenarios, outage behavior, ambiguous state, and integration hazards.
+  expected_output: >
+    A markdown licensing risk review with warnings, safeguards, and validation notes.
+  agent: licensing_risk_reviewer

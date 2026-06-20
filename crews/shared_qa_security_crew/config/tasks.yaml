@@ -1,0 +1,21 @@
+review_cross_product_risks:
+  description: >
+    Review the current product boundaries and identify the biggest shared security risks across server,
+    panel, platform, licensing, and community.
+  expected_output: >
+    A markdown security risk summary with severity and affected product surfaces.
+  agent: security_reviewer
+
+review_validation_expectations:
+  description: >
+    Define the validation expectations that implementation crews should meet before proposing PRs or autonomous changes.
+  expected_output: >
+    A markdown QA checklist with test expectations, review gates, and verification guidance.
+  agent: qa_reviewer
+
+define_release_gates:
+  description: >
+    Define which categories of changes are safe for autonomous implementation and which require explicit human approval.
+  expected_output: >
+    A markdown release gate policy with safe classes, blocked classes, and escalation triggers.
+  agent: release_guardian

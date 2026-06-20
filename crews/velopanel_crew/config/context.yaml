@@ -1,0 +1,16 @@
+name: velopanel_crew
+report_prefix: velopanel_report
+process: sequential
+default_goal: >
+  Review the next practical work for VeloPanel and turn it into a safe, reviewable implementation plan.
+default_repo_scope: >
+  velopanel
+default_constraints: >
+  No production deploys, no destructive account changes without approval, keep work PR-sized,
+  and pay special attention to permissions, ownership, quotas, and operational safety.
+default_success_definition: >
+  Return likely affected backend or UI areas, a step-by-step implementation plan,
+  validation guidance, and explicit safety risks for hosting operations.
+knowledge_files:
+  - repos/velopanel/README.md
+  - knowledge/architecture/repo_map.md

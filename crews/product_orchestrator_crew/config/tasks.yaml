@@ -1,0 +1,23 @@
+map_priorities:
+  description: >
+    Review the current product context, repository map, and routing guide.
+    Summarize the most important product boundaries and where current development effort should focus next.
+  expected_output: >
+    A markdown summary of product boundaries, repo responsibilities, and top strategic priorities.
+  agent: product_architect
+
+route_candidate_work:
+  description: >
+    Based on the current repo map, propose representative task categories and route each one to the correct repo and crew.
+    Call out any boundary conflicts or unclear ownership.
+  expected_output: >
+    A markdown routing matrix with task category, owning repo, owning crew, and rationale.
+  agent: repo_router
+
+shape_execution_plan:
+  description: >
+    Convert the strategic priorities into a practical implementation queue.
+    Keep work small, sequence it logically, and flag items that need human approval.
+  expected_output: >
+    A markdown implementation queue with ordered work items, dependencies, risk, and approval notes.
+  agent: delivery_planner

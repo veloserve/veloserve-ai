@@ -1,0 +1,17 @@
+.env
+.DS_Store
+.pytest_cache/
+__pycache__/
+*.pyc
+
+# Local runtime state
+/venv/
+/logs/
+/reports/
+/secrets/
+
+# Local cloned product repositories
+/repos/
+
+# Temporary task scratch space
+/tasks/

@@ -1,0 +1,6 @@
+name: licensing_crew
+report_prefix: licensing_report
+process: sequential
+knowledge_files:
+  - knowledge/architecture/repo_map.md
+  - knowledge/architecture/subdomains.md

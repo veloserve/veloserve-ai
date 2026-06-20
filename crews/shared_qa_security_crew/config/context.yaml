@@ -1,0 +1,7 @@
+name: shared_qa_security_crew
+report_prefix: shared_qa_security_report
+process: sequential
+knowledge_files:
+  - knowledge/architecture/repo_map.md
+  - knowledge/architecture/crew_routing.md
+  - runbooks/crew_operating_model.md

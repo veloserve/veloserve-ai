@@ -1,0 +1,32 @@
+analyze_repositories:
+  description: >
+    Read the Veloserve repository inventory and company context.
+    Produce a concise report describing what exists, what each repo appears to do,
+    and what information is missing.
+  expected_output: >
+    A markdown product and repository state report.
+  agent: repository_analyst
+
+create_roadmap:
+  description: >
+    Based on the repository analysis and company context, propose a practical 30-day roadmap.
+    Focus on work that improves product maturity, reliability, onboarding, billing, and usability.
+  expected_output: >
+    A markdown roadmap with priorities, risks, and recommended next steps.
+  agent: product_lead
+
+create_engineering_plan:
+  description: >
+    Convert the roadmap into a small set of GitHub issue candidates.
+    Each issue should be small, safe, and suitable for a pull request.
+  expected_output: >
+    A markdown list of GitHub issue candidates with title, repo, description, acceptance criteria, and risk level.
+  agent: engineering_manager
+
+review_plan:
+  description: >
+    Review the proposed issue candidates for safety, scope, and technical risk.
+    Mark which ones are safe for autonomous implementation and which require human approval.
+  expected_output: >
+    A markdown review with safe tasks, blocked tasks, and warnings.
+  agent: qa_reviewer

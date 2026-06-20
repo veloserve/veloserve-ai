@@ -1,0 +1,7 @@
+name: product_orchestrator_crew
+report_prefix: product_orchestrator_report
+process: sequential
+knowledge_files:
+  - knowledge/architecture/repo_map.md
+  - knowledge/architecture/crew_routing.md
+  - knowledge/architecture/subdomains.md
