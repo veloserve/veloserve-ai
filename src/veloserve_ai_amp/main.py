@@ -7,7 +7,7 @@ import os
 import sys
 import warnings
 
-from .crew import VeloserveAiAmpCrew
+from veloserve_ai_amp.crew import VeloserveAiAmpCrew
 
 
 warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
