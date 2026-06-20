@@ -51,6 +51,20 @@ python scripts/run_crew.py platform \
   --success-definition "Return an implementation plan and risks"
 ```
 
+The launcher also supports the newer structured AMP-style schema:
+
+```bash
+source venv/bin/activate
+python scripts/run_crew.py platform \
+  --task-type review_segment \
+  --repo-scope platform \
+  --segment billing \
+  --target platform.veloserve.io \
+  --constraints "No production deploys; PR-sized only; no schema-breaking changes" \
+  --success-definition "Return prioritized findings, a staging verification checklist, and 3 PR-sized improvement candidates with risks" \
+  --artifacts-required findings_list,priority_order,staging_checklist,pr_candidates,risk_summary
+```
+
 Another example for VeloPanel:
 
 ```bash
@@ -72,6 +86,9 @@ Examples:
 source venv/bin/activate
 python scripts/run_crew.py platform --preset billing-review
 python scripts/run_crew.py platform --preset auth-review
+python scripts/run_crew.py platform --preset billing-structured
+python scripts/run_crew.py platform --preset webhooks-hardening
+python scripts/run_crew.py platform --preset observability-issue
 python scripts/run_crew.py panel --preset quota-review
 python scripts/run_crew.py panel --preset ownership-audit
 ```
@@ -104,9 +121,25 @@ Copy `.env.example` to `.env` and set the LLM provider variables you actually us
 ```bash
 source venv/bin/activate
 PYTHONPATH=src \
-VELOSERVE_AI_INPUTS_JSON='{"goal":"Review next platform billing work","repo_scope":"platform"}' \
+VELOSERVE_AI_INPUTS_JSON='{"task_type":"review_segment","repo_scope":"platform","segment":"billing","target":"platform.veloserve.io","artifacts_required":["findings_list","staging_checklist","pr_candidates"]}' \
   venv/bin/python -m veloserve_ai_amp.main
 ```
+
+### AMP Input Schema v1
+
+Recommended payload fields for AMP:
+
+- `task_type`: `review_segment | draft_issue | implementation_plan | hardening_review`
+- `repo_scope`: `platform | velopanel | veloserve | licensing | community | admin | api | worker | fullstack`
+- `segment`: `billing | auth | notifications | webhooks | infra | observability | support_admin | general`
+- `target`: app, flow, or product surface under review
+- `constraints`: guardrails for this run
+- `success_definition`: what the output must contain
+- `artifacts_required`: array or comma-separated artifact list
+- `context_urls`: optional array of staging/spec/issue links
+- `notes`: optional short context
+
+Legacy `goal` payloads still work. The AMP wrapper now synthesizes a routing goal automatically when you send the structured schema above.
 
 ### Deploy To AMP
 

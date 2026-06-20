@@ -5,6 +5,7 @@ from crewai.agents.agent_builder.base_agent import BaseAgent
 from crewai.project import CrewBase, agent, before_kickoff, crew, task
 
 from veloserve_ai_amp.context import build_shared_context
+from veloserve_ai_amp.inputs import normalize_inputs
 
 
 @CrewBase
@@ -19,36 +20,24 @@ class VeloserveAiAmpCrew:
 
     @before_kickoff
     def prepare_inputs(self, inputs: dict | None):
-        payload = dict(inputs or {})
-        payload.setdefault("goal", "Review the current VeloServe task and propose the best next steps.")
-        payload.setdefault("repo_scope", "all relevant repos")
-        payload.setdefault(
-            "constraints",
-            "Do not deploy, do not change billing or pricing without approval, and keep work small and reviewable.",
-        )
-        payload.setdefault(
-            "success_definition",
-            "Return a markdown result with recommended owner crew, repo scope, implementation plan, and risk notes.",
-        )
-        payload["shared_context"] = build_shared_context()
-        return payload
+        return normalize_inputs(dict(inputs or {}))
 
     @agent
     def intake_router(self) -> Agent:
         cfg = dict(self.agents_config["intake_router"])  # type: ignore[index]
-        cfg["backstory"] = cfg["backstory"] + "\n\n{shared_context}"
+        cfg["backstory"] = cfg["backstory"] + "\n\n" + build_shared_context()
         return Agent(config=cfg, verbose=True)
 
     @agent
     def implementation_planner(self) -> Agent:
         cfg = dict(self.agents_config["implementation_planner"])  # type: ignore[index]
-        cfg["backstory"] = cfg["backstory"] + "\n\n{shared_context}"
+        cfg["backstory"] = cfg["backstory"] + "\n\n" + build_shared_context()
         return Agent(config=cfg, verbose=True)
 
     @agent
     def qa_gatekeeper(self) -> Agent:
         cfg = dict(self.agents_config["qa_gatekeeper"])  # type: ignore[index]
-        cfg["backstory"] = cfg["backstory"] + "\n\n{shared_context}"
+        cfg["backstory"] = cfg["backstory"] + "\n\n" + build_shared_context()
         return Agent(config=cfg, verbose=True)
 
     @task

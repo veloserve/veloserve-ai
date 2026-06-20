@@ -2,11 +2,29 @@ route_task:
   description: >
     Review this incoming task for the VeloServe ecosystem:
 
+    Task type:
+    {task_type}
+
+    Repo scope:
+    {repo_scope}
+
+    Segment:
+    {segment}
+
+    Target:
+    {target}
+
     Goal:
     {goal}
 
-    Repo scope hint:
-    {repo_scope}
+    Requested artifacts:
+    {artifacts_required}
+
+    Context URLs:
+    {context_urls}
+
+    Notes:
+    {notes}
 
     Constraints:
     {constraints}
@@ -20,18 +38,39 @@ route_task:
 plan_task:
   description: >
     Based on the routed brief, create a practical implementation plan for this request.
+    The request shape is:
+
+    - Task type: {task_type}
+    - Repo scope: {repo_scope}
+    - Segment: {segment}
+    - Target: {target}
+    - Goal: {goal}
+    - Requested artifacts: {artifacts_required}
+    - Context URLs: {context_urls}
+    - Notes: {notes}
+
     Keep the work small and reviewable, identify dependencies, and stay within these constraints:
     {constraints}
   expected_output: >
     A markdown implementation plan with ordered steps, repo scope, validation approach, and what success looks like.
     Success definition:
     {success_definition}
+    Required artifacts:
+    {artifacts_required}
   agent: implementation_planner
 
 review_task:
   description: >
     Review the proposed implementation plan for auth, billing, secrets, ownership checks,
     destructive paths, and product-boundary risk. Mark what is safe for autonomous work and what needs human approval.
+    Review it in the context of:
+    - Task type: {task_type}
+    - Repo scope: {repo_scope}
+    - Segment: {segment}
+    - Target: {target}
+    - Requested artifacts: {artifacts_required}
+    - Context URLs: {context_urls}
+    - Notes: {notes}
   expected_output: >
     A markdown QA and safety review with risks, approval gates, and a final go/no-go recommendation.
   agent: qa_gatekeeper

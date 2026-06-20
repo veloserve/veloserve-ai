@@ -48,3 +48,81 @@ downloads-licensing-review:
     Do not redefine licensing policy without approval. Keep implementation scoped to clear product boundaries.
   success_definition: >
     Return the next safe implementation step, likely files, entitlement risks, and cross-repo notes.
+
+billing-structured:
+  task_type: review_segment
+  repo_scope: platform
+  segment: billing
+  target: platform.veloserve.io
+  constraints: >
+    No production deploys; PR-sized only; no schema-breaking changes.
+  success_definition: >
+    Return prioritized findings, a staging verification checklist, and 3 PR-sized improvement candidates with risks.
+  artifacts_required:
+    - findings_list
+    - priority_order
+    - staging_checklist
+    - pr_candidates
+    - risk_summary
+
+auth-hardening:
+  task_type: hardening_review
+  repo_scope: platform
+  segment: auth
+  target: platform.veloserve.io
+  constraints: >
+    No production deploys; no secret rotation; no live account changes.
+  success_definition: >
+    Return auth risks, missing safeguards, and a PR-sized remediation plan.
+  artifacts_required:
+    - risk_findings
+    - mitigation_plan
+    - staging_tests
+    - pr_candidates
+
+webhooks-hardening:
+  task_type: implementation_plan
+  repo_scope: platform
+  segment: webhooks
+  target: billing and payment event processing
+  constraints: >
+    No production deploys; preserve current API contracts; focus on idempotency, retries, and observability.
+  success_definition: >
+    Return a hardening plan, edge cases, and 3 implementation slices suitable for separate PRs.
+  artifacts_required:
+    - implementation_plan
+    - edge_case_list
+    - pr_slices
+    - test_plan
+    - risk_summary
+
+infra-readiness:
+  task_type: review_segment
+  repo_scope: platform
+  segment: infra
+  target: deployment, runtime, background jobs, and environment configuration
+  constraints: >
+    No production deploys; no credential changes; output review only.
+  success_definition: >
+    Return deployment risks, observability gaps, rollback concerns, and staging verification steps.
+  artifacts_required:
+    - infra_findings
+    - observability_gaps
+    - rollback_notes
+    - staging_checklist
+
+observability-issue:
+  task_type: draft_issue
+  repo_scope: platform
+  segment: observability
+  target: application logs, metrics, alerts, and support debugging flow
+  constraints: >
+    No production deploys; markdown-only output; recommend incremental changes.
+  success_definition: >
+    Return a GitHub-ready issue draft plus 3 quick-win improvements for support visibility.
+  artifacts_required:
+    - issue_draft
+    - quick_wins
+    - alerting_gaps
+    - dashboard_needs
+    - risk_notes

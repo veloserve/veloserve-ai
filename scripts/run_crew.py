@@ -10,8 +10,10 @@ import yaml
 
 BASE = Path.home() / "Projects" / "veloserve-ai"
 sys.path.append(str(BASE / "crews"))
+sys.path.append(str(BASE / "src"))
 
 from _shared.runner import run_from_crew_dir
+from veloserve_ai_amp.inputs import normalize_inputs
 
 
 CREW_MAP = {
@@ -46,9 +48,24 @@ def main() -> int:
     parser.add_argument("crew", choices=sorted(CREW_MAP.keys()), help="Crew alias to run")
     parser.add_argument("--preset", default="", help="Named preset profile for this crew")
     parser.add_argument("--goal", default="", help="Primary task or request for the crew")
+    parser.add_argument("--task-type", default="", help="Structured task mode such as review_segment or draft_issue")
     parser.add_argument("--repo-scope", default="", help="Target repository or product surface")
+    parser.add_argument("--segment", default="", help="Structured segment such as billing, auth, or webhooks")
+    parser.add_argument("--target", default="", help="Specific app, flow, or surface under review")
     parser.add_argument("--constraints", default="", help="Constraints or rules for this run")
     parser.add_argument("--success-definition", default="", help="What a successful output should include")
+    parser.add_argument(
+        "--artifacts-required",
+        default="",
+        help="Comma-separated artifact list such as issue_draft,staging_checklist,pr_candidates",
+    )
+    parser.add_argument(
+        "--context-url",
+        action="append",
+        default=[],
+        help="Optional context URL. Repeat the flag to add multiple URLs.",
+    )
+    parser.add_argument("--notes", default="", help="Short extra context")
     parser.add_argument("--inputs-json", default="", help="Extra inputs as raw JSON object")
     args = parser.parse_args()
 
@@ -62,9 +79,15 @@ def main() -> int:
 
     cli_inputs = {
         "goal": args.goal,
+        "task_type": args.task_type,
         "repo_scope": args.repo_scope,
+        "segment": args.segment,
+        "target": args.target,
         "constraints": args.constraints,
         "success_definition": args.success_definition,
+        "artifacts_required": args.artifacts_required,
+        "context_urls": args.context_url,
+        "notes": args.notes,
     }
     cli_inputs = {key: value for key, value in cli_inputs.items() if value not in ("", None)}
 
@@ -73,6 +96,7 @@ def main() -> int:
     inputs.update(cli_inputs)
     inputs.update(extra_inputs)
     inputs = {key: value for key, value in inputs.items() if value not in ("", None)}
+    inputs = normalize_inputs(inputs)
 
     crew_dir = BASE / "crews" / CREW_MAP[args.crew]
     out = run_from_crew_dir(crew_dir, inputs=inputs)
