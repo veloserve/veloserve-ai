@@ -20,24 +20,32 @@ class VeloserveAiAmpCrew:
 
     @before_kickoff
     def prepare_inputs(self, inputs: dict | None):
-        return normalize_inputs(dict(inputs or {}))
+        normalized = normalize_inputs(dict(inputs or {}))
+        self._shared_context = build_shared_context(str(normalized.get("repo_scope", "fullstack")))
+        return normalized
 
     @agent
     def intake_router(self) -> Agent:
         cfg = dict(self.agents_config["intake_router"])  # type: ignore[index]
-        cfg["backstory"] = cfg["backstory"] + "\n\n" + build_shared_context()
+        cfg["backstory"] = cfg["backstory"] + "\n\n" + getattr(
+            self, "_shared_context", build_shared_context()
+        )
         return Agent(config=cfg, verbose=True)
 
     @agent
     def implementation_planner(self) -> Agent:
         cfg = dict(self.agents_config["implementation_planner"])  # type: ignore[index]
-        cfg["backstory"] = cfg["backstory"] + "\n\n" + build_shared_context()
+        cfg["backstory"] = cfg["backstory"] + "\n\n" + getattr(
+            self, "_shared_context", build_shared_context()
+        )
         return Agent(config=cfg, verbose=True)
 
     @agent
     def qa_gatekeeper(self) -> Agent:
         cfg = dict(self.agents_config["qa_gatekeeper"])  # type: ignore[index]
-        cfg["backstory"] = cfg["backstory"] + "\n\n" + build_shared_context()
+        cfg["backstory"] = cfg["backstory"] + "\n\n" + getattr(
+            self, "_shared_context", build_shared_context()
+        )
         return Agent(config=cfg, verbose=True)
 
     @task

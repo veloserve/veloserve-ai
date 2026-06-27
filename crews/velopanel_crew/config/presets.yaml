@@ -47,3 +47,67 @@ database-review:
     No destructive DB changes without clear safeguards. Keep the first change reviewable and low-blast-radius.
   success_definition: >
     Return the next safe backend or UX improvement, likely files, data-safety concerns, and tests to run.
+
+ownership-hardening-issue:
+  task_type: draft_issue
+  repo_scope: velopanel
+  segment: general
+  target: account-scoped email, FTP, cron, and advanced endpoints ownership checks
+  constraints: >
+    No production deploys; security-first; keep fixes incremental; preserve account-scoping guarantees.
+    Do not expand scope into file manager, backups, SSL, DNS, or other adjacent panel surfaces.
+  success_definition: >
+    Return a GitHub-ready issue draft focused only on ownership re-checks across the targeted account endpoints,
+    plus concise acceptance criteria, approval gates, and risk notes.
+  artifacts_required:
+    - issue_title
+    - github_issue_body
+    - acceptance_criteria
+    - approval_gates
+    - risk_summary
+  notes: >
+    Focus only on src/api/account_email.rs, src/api/account_ftp.rs, src/api/account_cron.rs, src/api/account_advanced.rs,
+    plus the exact shared DB/auth helpers needed to enforce ownership on delete/update/toggle paths. Do not include files.rs,
+    backups.rs, ssl.rs, domains.rs, databases.rs, or broad panel audit work in the issue body. Keep the first PR centered on
+    canonical ownership checks for existing account-scoped mutations.
+
+packages-flow-plan:
+  task_type: implementation_plan
+  repo_scope: velopanel
+  segment: general
+  target: packages CRUD, account creation flow, and package-driven quota application
+  constraints: >
+    No production deploys; keep work PR-sized; preserve existing account creation behavior unless the replacement path is validated.
+  success_definition: >
+    Return a PR-sized implementation plan that cleans up package CRUD, loads packages dynamically in Create Account,
+    and applies package quota values when accounts are created.
+  artifacts_required:
+    - implementation_plan
+    - affected_files
+    - validation_plan
+    - pr_slices
+    - risk_summary
+  notes: >
+    Focus on panel-ui/src/pages/Packages.svelte, panel-ui/src/pages/CreateAccount.svelte, src/api/packages.rs,
+    src/api/accounts.rs, and shared DB package/account helpers. Call out field-shape mismatches, POST vs PUT cleanup,
+    and removal of hardcoded plans from account creation.
+
+account-limits-enforcement:
+  task_type: review_segment
+  repo_scope: velopanel
+  segment: general
+  target: account-side domain and database creation limits
+  constraints: >
+    No destructive account changes; preserve ownership checks; keep fixes incremental and aligned with package limits.
+  success_definition: >
+    Return prioritized findings, the safest first PR, validation steps, and risks for enforcing max_domains and
+    max_databases in account-scoped domain and database actions.
+  artifacts_required:
+    - findings_list
+    - priority_order
+    - validation_plan
+    - pr_candidates
+    - risk_summary
+  notes: >
+    Focus on src/api/account_panel.rs, src/db/mod.rs, and account-facing domain/database UI surfaces if they need error-state
+    updates. Preserve the distinction between package configuration and account-scoped enforcement behavior.

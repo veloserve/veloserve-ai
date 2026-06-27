@@ -26,6 +26,9 @@ route_task:
     Notes:
     {notes_text}
 
+    Repository profile:
+    {repo_profile}
+
     Constraints:
     {constraints}
 
@@ -38,6 +41,7 @@ route_task:
     Using the shared product context, decide which VeloServe repo or crew should own the work,
     summarize the task in a clean engineering brief, preserve the requested scope and artifact names,
     and call out any missing assumptions.
+    Do not invent frameworks, file paths, or module names that conflict with the repository profile.
   expected_output: >
     A markdown routing brief with suggested owning repo, suggested crew, summary of the request,
     requested artifacts, and important assumptions. If scope should be narrowed, explain it explicitly.
@@ -57,6 +61,8 @@ plan_task:
     - Context URLs:
     {context_urls_text}
     - Notes: {notes_text}
+    - Repository profile:
+    {repo_profile}
 
     Keep the work small and reviewable, identify dependencies, and stay within these constraints:
     {constraints}
@@ -66,6 +72,7 @@ plan_task:
 
     Output contract:
     {artifact_output_contract}
+    Do not invent frameworks, file paths, or module names that conflict with the repository profile.
   expected_output: >
     A markdown implementation plan with ordered steps, repo scope, validation approach, and what success looks like.
     Preserve the requested scope and artifacts. If you recommend a smaller first PR, keep the broader scope visible
@@ -89,6 +96,8 @@ review_task:
     - Context URLs:
     {context_urls_text}
     - Notes: {notes_text}
+    - Repository profile:
+    {repo_profile}
 
     Scope lock rules:
     {scope_lock_rules}
@@ -97,6 +106,7 @@ review_task:
     {artifact_output_contract}
 
     Explicitly flag any scope drift between the original request and the proposed plan.
+    Treat file-path or framework drift against the repository profile as a quality issue.
   expected_output: >
     A markdown QA and safety review with risks, approval gates, scope-drift notes, and a final go/no-go recommendation.
   agent: qa_gatekeeper

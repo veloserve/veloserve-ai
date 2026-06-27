@@ -91,6 +91,9 @@ python scripts/run_crew.py platform --preset webhooks-hardening
 python scripts/run_crew.py platform --preset observability-issue
 python scripts/run_crew.py panel --preset quota-review
 python scripts/run_crew.py panel --preset ownership-audit
+python scripts/run_crew.py panel --preset ownership-hardening-issue
+python scripts/run_crew.py panel --preset packages-flow-plan
+python scripts/run_crew.py panel --preset account-limits-enforcement
 ```
 
 You can still override any preset field:
@@ -124,6 +127,8 @@ PYTHONPATH=src \
 VELOSERVE_AI_INPUTS_JSON='{"task_type":"review_segment","repo_scope":"platform","segment":"billing","target":"platform.veloserve.io","artifacts_required":["findings_list","staging_checklist","pr_candidates"]}' \
   venv/bin/python -m veloserve_ai_amp.main
 ```
+
+The module entrypoint now prints the final crew output, so this command works as a real local smoke test.
 
 ### AMP Input Schema v1
 

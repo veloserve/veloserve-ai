@@ -50,6 +50,15 @@ class AmpInputsTests(unittest.TestCase):
             "- https://platform.veloserve.io\n- https://example.test/spec",
         )
 
+    def test_repo_profile_exposes_real_repo_stack_details(self) -> None:
+        normalized = normalize_inputs({"repo_scope": "velopanel"})
+
+        repo_profile = normalized["repo_profile"]
+        self.assertIn("Repo profile for `velopanel`", repo_profile)
+        self.assertIn("Rust", repo_profile)
+        self.assertIn("Svelte SPA at panel-ui/package.json", repo_profile)
+        self.assertIn("panel-ui/src/pages/CreateAccount.svelte", repo_profile)
+
 
 if __name__ == "__main__":
     unittest.main()

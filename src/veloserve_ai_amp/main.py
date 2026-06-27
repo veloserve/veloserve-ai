@@ -12,6 +12,7 @@ from veloserve_ai_amp.inputs import default_inputs, normalize_inputs
 
 warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
 
+
 def _load_inputs() -> dict[str, str]:
     inputs = default_inputs()
     raw_env = os.getenv("VELOSERVE_AI_INPUTS_JSON", "").strip()
@@ -72,3 +73,12 @@ def run_with_trigger():
     inputs = default_inputs()
     inputs["crewai_trigger_payload"] = trigger_payload
     return VeloserveAiAmpCrew().crew().kickoff(inputs=normalize_inputs(inputs))
+
+
+def _print_result_if_present(result) -> None:
+    if result is not None:
+        print(result)
+
+
+if __name__ == "__main__":
+    _print_result_if_present(run())
