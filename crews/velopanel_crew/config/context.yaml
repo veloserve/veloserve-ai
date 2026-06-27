@@ -13,4 +13,9 @@ default_success_definition: >
   validation guidance, and explicit safety risks for hosting operations.
 knowledge_files:
   - repos/velopanel/README.md
+  - repos/velopanel/panel-ui/package.json
+  - repos/velopanel/panel-ui/src/pages/Packages.svelte
+  - repos/velopanel/panel-ui/src/pages/CreateAccount.svelte
+  - repos/velopanel/src/api/account_panel.rs
+  - repos/velopanel/src/db/mod.rs
   - knowledge/architecture/repo_map.md

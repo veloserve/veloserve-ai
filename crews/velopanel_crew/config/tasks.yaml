@@ -11,9 +11,14 @@ assess_panel_backend:
     Constraints:
     {constraints}
 
-    Summarize the core backend domains most likely involved:
-    accounts, domains, SSL, databases, backups, monitoring, quotas, and service controls.
-    Call out likely ownership, permission, or data-isolation implications.
+    Notes:
+    {notes}
+
+    Summarize only the backend domains directly implied by the goal and notes above.
+    Do not introduce adjacent panel surfaces unless they are required to explain a real dependency
+    or safety risk. If the request narrows scope to specific modules, preserve that narrow scope
+    instead of expanding into a broad panel audit.
+    Call out only the ownership, permission, quota, or data-isolation implications that are in-scope.
   expected_output: >
     A markdown backend assessment with likely affected domains, suspected backend areas,
     data-safety concerns, and the most relevant next fixes.

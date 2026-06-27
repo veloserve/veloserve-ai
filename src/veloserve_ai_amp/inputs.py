@@ -3,6 +3,8 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Any
 
+from veloserve_ai_amp.repo_context import build_repo_profile
+
 
 DEFAULT_CONSTRAINTS = (
     "No production deploys; no billing or pricing changes without approval; "
@@ -92,6 +94,7 @@ def normalize_inputs(payload: dict[str, Any] | None) -> dict[str, object]:
         {
             "task_type": task_type,
             "repo_scope": repo_scope,
+            "repo_profile": build_repo_profile(repo_scope) or "No repo profile available.",
             "segment": segment,
             "target": target,
             "goal": goal,
